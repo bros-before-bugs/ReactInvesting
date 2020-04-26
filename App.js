@@ -18,6 +18,7 @@ import {
   Left,
 } from 'native-base';
 import CompanyInfo from './screens/company_info';
+import HistoricalPrices from './screens/historical_prices';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
@@ -77,13 +78,13 @@ function HomeScreen({navigation}) {
           <Row style={styles.rowStyle}>
             <Col>
               <TouchableOpacity
-                onPress={() => navigation.navigate('CompanyInfo')}>
+                onPress={() => navigation.navigate('HistoricalPrices')}>
                 <ImageBackground
                   source={require('./assets/img/dumb360x200.jpg')}
                   style={styles.touchableButtonImgBackground}
                   imageStyle={{borderRadius: 25}}>
                   <Text style={styles.touchableButtonText}>
-                    Informações da Empresa
+                    Preços Históricos
                   </Text>
                 </ImageBackground>
               </TouchableOpacity>
@@ -147,7 +148,16 @@ const App: () => React$Node = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="CompanyInfo" component={CompanyInfo} />
+        <Stack.Screen
+          name="CompanyInfo"
+          component={CompanyInfo}
+          options={{title: 'Informações da Empresa'}}
+        />
+        <Stack.Screen
+          name="HistoricalPrices"
+          component={HistoricalPrices}
+          options={{title: 'Valores Históricos'}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
