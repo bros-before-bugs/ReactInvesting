@@ -1,11 +1,11 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {Container, Text} from 'native-base';
 
 function CompanyInfo({navigation}) {
   return (
-    <View>
+    <Container>
       <Text>Informações da Empresa</Text>
-    </View>
+    </Container>
   );
 }
 
