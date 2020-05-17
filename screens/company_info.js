@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Container, Item, Input, Content, Grid, Row, Text, Card, CardItem, Left, Body} from 'native-base';
+import {Container, Item, Input, Content, Grid, Row, Text, Card, CardItem, Left, Body, Toast} from 'native-base';
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
@@ -22,6 +22,9 @@ const styles = StyleSheet.create({
   textContent: {
       paddingLeft: 10,
       lineHeight: 25
+  },
+  toaster: {
+      backgroundColor: 'red'
   }
 });
 
@@ -31,7 +34,7 @@ function CompanyInfo({navigation}) {
     const [description, setDescription] = useState('-')
     const [site, setSite] = useState('-')
 
-    let setCompanyInformation = (data)=> {
+    let setCompanyInformation = (data) => {
         setTicker(data.symbol)
         setCompany(data.company)
         setDescription(data.description)
@@ -53,29 +56,29 @@ function CompanyInfo({navigation}) {
             let json = await response.json()
             let statusCode = parseInt(json.status.code)
             if(statusCode != '0'){
-                resetCompanyInformation() // TODO: use TOAST to show error
+                Toast.show({
+                    text: json.status.message,
+                    buttonText: 'Ok',
+                    useNativeDriver: true,
+                    duration: 3000,
+                    style: styles.toaster
+                })
+                resetCompanyInformation()
             }
             else {
-                // setTicker(json.data.symbol)
-                // setCompany(json.data.company)
-                // setDescription(json.data.description)
-                // setSite(json.data.website)
-                setCompanyInformation(data)
+                setCompanyInformation(json.data)
             }
         } catch (error) {
-            resetCompanyInformation() // TODO: use TOAST to show error
+            Toast.show({
+                text: 'Ocorreu um erro inesperado',
+                buttonText: 'Ok',
+                useNativeDriver: true,
+                duration: 3000,
+                style: styles.toaster
+            })
+            resetCompanyInformation()
+            // console.error(error)
         }
-        // fetch(`https://api.stockdio.com/data/financial/info/v1/GetCompanyInfo?app-key=C58D15F86B0B48F2A393FA198819B881&stockExchange=Bovespa&symbol=${ticker.toUpperCase()}`)
-        // .then(res => res.json())
-        // .then(resJson => {
-        //     setTicker(resJson.data.symbol)
-        //     setCompany(resJson.data.company)
-        //     setDescription(resJson.data.description)
-        //     setSite(resJson.data.website)
-        // })
-        // .catch(error => {
-        //     setTicker('Oopsie!!')
-        // })
     }
   return (
     <Container>
