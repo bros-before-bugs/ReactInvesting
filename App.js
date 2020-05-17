@@ -20,6 +20,7 @@ import {
 import { Root } from "native-base";
 import CompanyInfo from './screens/company_info';
 import HistoricalPrices from './screens/historical_prices';
+import News from './screens/news';
 import Commodities from './screens/commodities';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
@@ -65,28 +66,13 @@ function HomeScreen({navigation}) {
           <Row style={styles.rowStyle}>
             <Col>
               <TouchableOpacity
-                onPress={() => navigation.navigate('CompanyInfo')}>
+                onPress={() => navigation.navigate('News')}>
                 <ImageBackground
-                  source={require('./assets/img/comparativo.png')}
+                  source={require('./assets/img/news2.png')}
                   style={styles.touchableButtonImgBackground}
                   imageStyle={{borderRadius: 25}}>
                   <Text style={styles.touchableButtonText}>
-                    Comparativo de Ações
-                  </Text>
-                </ImageBackground>
-              </TouchableOpacity>
-            </Col>
-          </Row>
-          <Row style={styles.rowStyle}>
-            <Col>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('HistoricalPrices')}>
-                <ImageBackground
-                  source={require('./assets/img/dumb360x200.jpg')}
-                  style={styles.touchableButtonImgBackground}
-                  imageStyle={{borderRadius: 25}}>
-                  <Text style={styles.touchableButtonText}>
-                    Preços Históricos
+                    Notícias
                   </Text>
                 </ImageBackground>
               </TouchableOpacity>
@@ -110,28 +96,13 @@ function HomeScreen({navigation}) {
           <Row style={styles.rowStyle}>
             <Col>
               <TouchableOpacity
-                onPress={() => navigation.navigate('CompanyInfo')}>
+                onPress={() => navigation.navigate('HistoricalPrices')}>
                 <ImageBackground
                   source={require('./assets/img/dumb360x200.jpg')}
                   style={styles.touchableButtonImgBackground}
                   imageStyle={{borderRadius: 25}}>
                   <Text style={styles.touchableButtonText}>
-                    Informações da Empresa
-                  </Text>
-                </ImageBackground>
-              </TouchableOpacity>
-            </Col>
-          </Row>
-          <Row style={styles.rowStyle}>
-            <Col>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('CompanyInfo')}>
-                <ImageBackground
-                  source={require('./assets/img/dumb360x200.jpg')}
-                  style={styles.touchableButtonImgBackground}
-                  imageStyle={{borderRadius: 25}}>
-                  <Text style={styles.touchableButtonText}>
-                    Informações da Empresa
+                    Preços Históricos
                   </Text>
                 </ImageBackground>
               </TouchableOpacity>
@@ -160,6 +131,11 @@ const App: () => React$Node = () => {
             name="HistoricalPrices"
             component={HistoricalPrices}
             options={{title: 'Valores Históricos'}}
+            />
+            <Stack.Screen
+            name="News"
+            component={News}
+            options={{title: 'Notícias'}}
             />
         </Stack.Navigator>
         </NavigationContainer>
