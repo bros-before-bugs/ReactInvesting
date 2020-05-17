@@ -17,6 +17,7 @@ import {
   View,
   Left,
 } from 'native-base';
+import { Root } from "native-base";
 import CompanyInfo from './screens/company_info';
 import HistoricalPrices from './screens/historical_prices';
 import Commodities from './screens/commodities';
@@ -146,26 +147,23 @@ const Stack = createStackNavigator();
 
 const App: () => React$Node = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen
-          name="CompanyInfo"
-          component={CompanyInfo}
-          options={{title: 'Informações da Empresa'}}
-        />
-        <Stack.Screen
-          name="HistoricalPrices"
-          component={HistoricalPrices}
-          options={{title: 'Valores Históricos'}}
-        />
-        <Stack.Screen
-          name="Commodities"
-          component={Commodities}
-          options={{title: 'Commodities'}}
-        />        
-      </Stack.Navigator>
-    </NavigationContainer>
+      <Root>
+        <NavigationContainer>
+        <Stack.Navigator>
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen
+            name="CompanyInfo"
+            component={CompanyInfo}
+            options={{title: 'Informações da Empresa'}}
+            />
+            <Stack.Screen
+            name="HistoricalPrices"
+            component={HistoricalPrices}
+            options={{title: 'Valores Históricos'}}
+            />
+        </Stack.Navigator>
+        </NavigationContainer>
+      </Root>
   );
 };
 
