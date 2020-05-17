@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Container, Item, Input, Content, Grid, Row, Text, Card, CardItem, Left, Body} from 'native-base';
 import {StyleSheet} from 'react-native';
 
@@ -26,36 +26,58 @@ const styles = StyleSheet.create({
 });
 
 function CompanyInfo({navigation}) {
+    const [ticker, setTicker] = useState('-')
+    const [company, setCompany] = useState('-')
+    const [description, setDescription] = useState('-')
+    const [site, setSite] = useState('-')
+
+    var getCompanyInfo = (ticker) => {
+        if(ticker.length < 5)
+            return;
+        fetch(`https://api.stockdio.com/data/financial/info/v1/GetCompanyInfo?app-key=C58D15F86B0B48F2A393FA198819B881&stockExchange=Bovespa&symbol=${ticker.toUpperCase()}`)
+        .then(res => res.json())
+        .then(resJson => {
+            setTicker(resJson.data.symbol)
+            setCompany(resJson.data.company)
+            setDescription(resJson.data.description)
+            setSite(resJson.data.website)
+        })
+        .catch(error => {
+            setTicker('Oopsie!!')
+        })
+    }
   return (
     <Container>
       <Content>
         <Grid>
           <Row style={styles.searchRow}>
             <Item rounded>
-              <Input placeholder="ticker da ação. Ex: PETR3" />
+              <Input
+                onChangeText={(tickerRequest) => {getCompanyInfo(tickerRequest)}} 
+                placeholder="ticker da ação. Ex: PETR3" />
             </Item>
           </Row>
         </Grid>
         <Card style={styles.CardInfo}>
             <CardItem style={styles.cardItem}>
                 <Text style={styles.textTitle}>Ticker:</Text>
-                <Text style={styles.textContent}>PETR4</Text>
+                <Text style={styles.textContent}>{ticker}</Text>
             </CardItem>
             <CardItem style={styles.cardItem}>
                 <Text style={styles.textTitle}>Empresa:</Text>
-                <Text style={styles.textContent}>Petrobrás</Text>
+                <Text style={styles.textContent}>{company}</Text>
             </CardItem>
             <CardItem style={styles.cardItem}>
                 <Body>
                     <Text style={styles.textTitle}>Descrição: </Text>
                     <Text style={styles.textContent}>
-                        Petróeo Brasileiro SA engages in the oil and gas exploration, production, and distribution activities. It operates through the following segments: Exploration and Production; Refining, Transportation, and Marketing; Distribution; Gas & Power; Biofuel; International; and Corporate. The Exploration and Production segment involves crude oil, natural gas liquids, and natural gas exploration, development, and production.
+                        {description}
                     </Text>
                 </Body>
             </CardItem>
             <CardItem style={styles.cardItem}>
                 <Text style={styles.textTitle}>Site: </Text>
-                <Text style={styles.textContent}>www.petrobras.com </Text>
+                <Text style={styles.textContent}>{site} </Text>
             </CardItem>
         </Card>
       </Content>
