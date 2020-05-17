@@ -20,6 +20,7 @@ import {
 import { Root } from "native-base";
 import CompanyInfo from './screens/company_info';
 import HistoricalPrices from './screens/historical_prices';
+import Commodities from './screens/commodities';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
@@ -94,13 +95,13 @@ function HomeScreen({navigation}) {
           <Row style={styles.rowStyle}>
             <Col>
               <TouchableOpacity
-                onPress={() => navigation.navigate('CompanyInfo')}>
+                onPress={() => navigation.navigate('Commodities')}>
                 <ImageBackground
-                  source={require('./assets/img/dumb360x200.jpg')}
+                  source={require('./assets/img/commodities.png')}
                   style={styles.touchableButtonImgBackground}
                   imageStyle={{borderRadius: 25}}>
                   <Text style={styles.touchableButtonText}>
-                    Informações da Empresa
+                    Commodities
                   </Text>
                 </ImageBackground>
               </TouchableOpacity>
