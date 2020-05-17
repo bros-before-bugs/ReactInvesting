@@ -11,12 +11,17 @@ const styles = StyleSheet.create({
       marginLeft: 5,
       marginRight: 5,
   },
+  cardItem: {
+    borderBottomColor: '#eee',
+    borderBottomWidth: 2
+  },
   textTitle:{
       paddingLeft: 5,
       fontWeight: "bold"
   },
   textContent: {
-      paddingLeft: 10
+      paddingLeft: 10,
+      lineHeight: 25
   }
 });
 
@@ -32,15 +37,15 @@ function CompanyInfo({navigation}) {
           </Row>
         </Grid>
         <Card style={styles.CardInfo}>
-            <CardItem bordered>
+            <CardItem style={styles.cardItem}>
                 <Text style={styles.textTitle}>Ticker:</Text>
                 <Text style={styles.textContent}>PETR4</Text>
             </CardItem>
-            <CardItem bordered>
+            <CardItem style={styles.cardItem}>
                 <Text style={styles.textTitle}>Empresa:</Text>
                 <Text style={styles.textContent}>Petrobrás</Text>
             </CardItem>
-            <CardItem bordered>
+            <CardItem style={styles.cardItem}>
                 <Body>
                     <Text style={styles.textTitle}>Descrição: </Text>
                     <Text style={styles.textContent}>
@@ -48,7 +53,7 @@ function CompanyInfo({navigation}) {
                     </Text>
                 </Body>
             </CardItem>
-            <CardItem>
+            <CardItem style={styles.cardItem}>
                 <Text style={styles.textTitle}>Site: </Text>
                 <Text style={styles.textContent}>www.petrobras.com </Text>
             </CardItem>
