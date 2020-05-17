@@ -31,20 +31,51 @@ function CompanyInfo({navigation}) {
     const [description, setDescription] = useState('-')
     const [site, setSite] = useState('-')
 
-    var getCompanyInfo = (ticker) => {
-        if(ticker.length < 5)
-            return;
-        fetch(`https://api.stockdio.com/data/financial/info/v1/GetCompanyInfo?app-key=C58D15F86B0B48F2A393FA198819B881&stockExchange=Bovespa&symbol=${ticker.toUpperCase()}`)
-        .then(res => res.json())
-        .then(resJson => {
-            setTicker(resJson.data.symbol)
-            setCompany(resJson.data.company)
-            setDescription(resJson.data.description)
-            setSite(resJson.data.website)
-        })
-        .catch(error => {
-            setTicker('Oopsie!!')
-        })
+    let setCompanyInformation = (data)=> {
+        setTicker(data.symbol)
+        setCompany(data.company)
+        setDescription(data.description)
+        setSite(data.website)
+    }
+
+    let resetCompanyInformation = () => {
+        setTicker('-')
+        setCompany('-')
+        setDescription('-')
+        setSite('-')
+    }
+
+    let getCompanyInfo = async (ticker) => {
+        try {
+            if(ticker.length < 5)
+                return;
+            let response = await fetch(`https://api.stockdio.com/data/financial/info/v1/GetCompanyInfo?app-key=C58D15F86B0B48F2A393FA198819B881&stockExchange=Bovespa&symbol=${ticker.toUpperCase()}`)
+            let json = await response.json()
+            let statusCode = parseInt(json.status.code)
+            if(statusCode != '0'){
+                resetCompanyInformation() // TODO: use TOAST to show error
+            }
+            else {
+                // setTicker(json.data.symbol)
+                // setCompany(json.data.company)
+                // setDescription(json.data.description)
+                // setSite(json.data.website)
+                setCompanyInformation(data)
+            }
+        } catch (error) {
+            resetCompanyInformation() // TODO: use TOAST to show error
+        }
+        // fetch(`https://api.stockdio.com/data/financial/info/v1/GetCompanyInfo?app-key=C58D15F86B0B48F2A393FA198819B881&stockExchange=Bovespa&symbol=${ticker.toUpperCase()}`)
+        // .then(res => res.json())
+        // .then(resJson => {
+        //     setTicker(resJson.data.symbol)
+        //     setCompany(resJson.data.company)
+        //     setDescription(resJson.data.description)
+        //     setSite(resJson.data.website)
+        // })
+        // .catch(error => {
+        //     setTicker('Oopsie!!')
+        // })
     }
   return (
     <Container>
