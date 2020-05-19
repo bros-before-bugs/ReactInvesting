@@ -137,6 +137,11 @@ const App: () => React$Node = () => {
             component={News}
             options={{title: 'Notícias'}}
             />
+            <Stack.Screen
+            name="Commodities"
+            component={Commodities}
+            options={{title: 'Commodities'}}
+        />        
         </Stack.Navigator>
         </NavigationContainer>
       </Root>
