@@ -10,9 +10,9 @@ const styles = StyleSheet.create({
   },
 });
 
-function FutureIndices({navigation}) {
+function Commodities({navigation}) {
     
-  const [iframe, setIframe] = useState('<iframe frameBorder="0" scrolling="yes" width="400" height="620" src="https://api.stockdio.com/visualization/financial/charts/v1/PricesChangeBoard?app-key=C58D15F86B0B48F2A393FA198819B881&stockExchange=COMMODITIES&symbols=GC;SI;CO;CL;CR&includeSymbol=false&showCurrency=true&culture=Portuguese-Brasil&palette=Financial-Light&title=Watch%20List&showLogo=No&onload=st_0c703776ca1146e79be15f3127dee6a0"></iframe>');
+  const [iframe, setIframe] = useState('<iframe frameBorder="0" scrolling="yes" width="400" height="1720" src="https://api.stockdio.com/visualization/financial/charts/v1/PricesChangeBoard?app-key=C58D15F86B0B48F2A393FA198819B881&stockExchange=COMMODITIES&symbols=AL;CO;QL;UC;HG;CL;GO;HO;IO;LH;NI;OJ;PL;SI;ZM;SR;US;UX;DC;CB;CR;FC;GC;LE;LC;LB;NG;OA;PA;RR;SB;ZL;SS;CT;WH;MZ&includeSymbol=false&showCurrency=true&culture=Portuguese-Brasil&palette=Financial-Light&title=Watch%20List&showLogo=No&onload=st_0c703776ca1146e79be15f3127dee6a0"></iframe>');
   
   return (
     <Container>
@@ -23,7 +23,7 @@ function FutureIndices({navigation}) {
                     scalesPageToFit={false}
                     bounces={false}
                     javaScriptEnabled
-                    style={{height: 620, width: 950, marginTop: 0, paddingTop: 0}}
+                    style={{height: 1720, width: 950, marginTop: 0, paddingTop: 0}}
                     source={{ html: iframe,
                     }}
                     automaticallyAdjustContentInsets={true}
@@ -35,4 +35,4 @@ function FutureIndices({navigation}) {
   );
 }
 
-export default FutureIndices;
+export default Commodities;
