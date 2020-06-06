@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
 function StockPriceComparison({navigation}) {
     
     const [iframe, setIframe] = useState('<iframe frameBorder="0" scrolling="no" width="400" height="420" src="https://api.stockdio.com/visualization/financial/charts/v1/HistoricalPrices?app-key=C58D15F86B0B48F2A393FA198819B881&stockExchange=Bovespa&symbol=PETR3&addVolume=false&dividends=true&showUserMenu=false&culture=Portuguese-Brasil=false&splits=true&palette=Financial-Light&width=400px"></iframe>');
-    const [tickerSearchedList, setTickerSearchedList] = useState([<Text>Nenhuma ação foi escolhida</Text>]);
+    const [tickerSearchedList, setTickerSearchedList] = useState([]);
+    const [tickerSearchedObject, setTickerSearchedObject] = useState({})
     const [typedTicker, setTypedTicker] = useState('');
 
     let getHistoricalPrices = (ticker) => {
@@ -50,7 +51,7 @@ function StockPriceComparison({navigation}) {
     };
 
     let buildTickerSearchedButton = (ticker) =>{
-        let tickerSearchedButton = <Button rounded style={styles.TickerSearchedButton}><Text style={styles.TickerSearchedText}>{ticker}</Text><Icon style={styles.TickerSearchedIcon} type="FontAwesome" name="remove" /></Button>;
+        let tickerSearchedButton = <Button onPress={() => removeSearchedTicker(ticker)} rounded style={styles.TickerSearchedButton}><Text style={styles.TickerSearchedText}>{ticker}</Text><Icon style={styles.TickerSearchedIcon} type="FontAwesome" name="remove" /></Button>;
         return tickerSearchedButton;
     };
 
@@ -59,13 +60,20 @@ function StockPriceComparison({navigation}) {
         //     // TODO: Toast informing the bla bla bla
         //     return;
         // }
-        tickerSearchedList.push(buildTickerSearchedButton(typedTicker));
-        setTickerSearchedList(tickerSearchedList);
+        // tickerSearchedList.push(buildTickerSearchedButton(typedTicker));
+        tickerSearchedObject[typedTicker] = buildTickerSearchedButton(typedTicker);
+        setTickerSearchedObject(tickerSearchedObject);
+        
+        setTickerSearchedList(Object.values(tickerSearchedObject))
         setTypedTicker('');
     }
 
-    let removeSearchedTicker = () => {
-        
+    let removeSearchedTicker = (ticker) => {
+        delete tickerSearchedObject[ticker];
+        setTickerSearchedObject(tickerSearchedObject);
+
+        setTickerSearchedList(Object.values(tickerSearchedObject));
+        console.log("removeSearchedTicker" + ticker);
     }
 
     let saveTipedTicker = (text) => {
