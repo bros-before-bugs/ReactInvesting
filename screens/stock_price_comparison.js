@@ -39,13 +39,43 @@ const styles = StyleSheet.create({
 
 function StockPriceComparison({navigation}) {
     
-  const [iframe, setIframe] = useState('<iframe frameBorder="0" scrolling="no" width="400" height="420" src="https://api.stockdio.com/visualization/financial/charts/v1/HistoricalPrices?app-key=C58D15F86B0B48F2A393FA198819B881&stockExchange=Bovespa&symbol=PETR3&addVolume=false&dividends=true&showUserMenu=false&culture=Portuguese-Brasil=false&splits=true&palette=Financial-Light&width=400px"></iframe>');
-  
-  var getHistoricalPrices = (ticker) => {
-    if(ticker.length < 5)
-        return;
-    setIframe(`<iframe frameBorder="0" scrolling="no" width="400" height="420" src="https://api.stockdio.com/visualization/financial/charts/v1/HistoricalPrices?app-key=C58D15F86B0B48F2A393FA198819B881&stockExchange=Bovespa&symbol=${ticker.toUpperCase()}&addVolume=false&dividends=true&showUserMenu=false&culture=Portuguese-Brasil=false&splits=true&palette=Financial-Light&width=400px"></iframe>`)
-  };
+    const [iframe, setIframe] = useState('<iframe frameBorder="0" scrolling="no" width="400" height="420" src="https://api.stockdio.com/visualization/financial/charts/v1/HistoricalPrices?app-key=C58D15F86B0B48F2A393FA198819B881&stockExchange=Bovespa&symbol=PETR3&addVolume=false&dividends=true&showUserMenu=false&culture=Portuguese-Brasil=false&splits=true&palette=Financial-Light&width=400px"></iframe>');
+    const [tickerSearchedList, setTickerSearchedList] = useState([<Text>Nenhuma ação foi escolhida</Text>]);
+    const [typedTicker, setTypedTicker] = useState('');
+
+    let getHistoricalPrices = (ticker) => {
+        if(ticker.length < 5)
+            return;
+        setIframe(`<iframe frameBorder="0" scrolling="no" width="400" height="420" src="https://api.stockdio.com/visualization/financial/charts/v1/HistoricalPrices?app-key=C58D15F86B0B48F2A393FA198819B881&stockExchange=Bovespa&symbol=${ticker.toUpperCase()}&addVolume=false&dividends=true&showUserMenu=false&culture=Portuguese-Brasil=false&splits=true&palette=Financial-Light&width=400px"></iframe>`)
+    };
+
+    let buildTickerSearchedButton = (ticker) =>{
+        let tickerSearchedButton = <Button rounded style={styles.TickerSearchedButton}><Text style={styles.TickerSearchedText}>{ticker}</Text><Icon style={styles.TickerSearchedIcon} type="FontAwesome" name="remove" /></Button>;
+        return tickerSearchedButton;
+    };
+
+    let addSearchedTicker = () => {
+        // if(ticker.length < 5){
+        //     // TODO: Toast informing the bla bla bla
+        //     return;
+        // }
+        tickerSearchedList.push(buildTickerSearchedButton(typedTicker));
+        setTickerSearchedList(tickerSearchedList);
+        setTypedTicker('');
+    }
+
+    let removeSearchedTicker = () => {
+        
+    }
+
+    let saveTipedTicker = (text) => {
+        if(text.length < 5){
+            // TODO: Toast informing the bla bla bla
+            return;
+        }
+        setTypedTicker(text);
+    }
+
   return (
     <Container>
         <Content>
@@ -55,7 +85,7 @@ function StockPriceComparison({navigation}) {
                         <Item rounded>
                             <Input
                             onChangeText={(ticker) => {
-                                getHistoricalPrices(ticker);
+                                saveTipedTicker(ticker);
                             }}
                             placeholder="ticker da ação. Ex: PETR4"
                             />
@@ -63,7 +93,9 @@ function StockPriceComparison({navigation}) {
                     </Col>
                     <Col style={{ width: '30%', padding: 10 }}>
                         <Button 
-                            style={styles.addTickerButton}>
+                            style={styles.addTickerButton}
+                            onPress={addSearchedTicker}
+                            >
                             <Icon
                                 style={styles.AddTickerIcon} 
                                 type="FontAwesome" 
@@ -72,7 +104,7 @@ function StockPriceComparison({navigation}) {
                     </Col>
                 </Row>
                 <Row style={styles.TickerSearchedRow}>
-                    <Button rounded style={styles.TickerSearchedButton}>
+                    {/* <Button rounded style={styles.TickerSearchedButton}>
                         <Text style={styles.TickerSearchedText}>PETR4</Text>
                         <Icon style={styles.TickerSearchedIcon} type="FontAwesome" name="remove" />
                     </Button>
@@ -83,7 +115,8 @@ function StockPriceComparison({navigation}) {
                     <Button rounded style={styles.TickerSearchedButton}>
                         <Text style={styles.TickerSearchedText}>PETR4</Text>
                         <Icon style={styles.TickerSearchedIcon} type="FontAwesome" name="remove" />
-                    </Button>
+                    </Button> */}
+                    {tickerSearchedList}
                 </Row>
                 <Row style={{}}>
                 <WebView
