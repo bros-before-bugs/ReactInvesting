@@ -8,15 +8,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 30,
   },
+  // AddTicker Feature
   addTickerButton: {
-    width: 48, 
-    borderRadius: 24, 
+    width: 52,
+    height: 52, 
+    borderRadius: 26, 
     borderWidth: 3,
     borderColor: '#65497A',
-    backgroundColor: '#9B7DE3'
+    backgroundColor: '#9B7DE3',
+    alignContent: "center",
+    justifyContent: "center"
   },
   addTickerText: {
     fontSize: 15
+  },
+  AddTickerIcon: {
+      fontSize: 15,
+  },
+  // TickerSearched Feature
+  TickerSearchedRow: {
+    justifyContent: 'space-evenly'
+  },
+  TickerSearchedButton: {
+      height: 30
+  },
+  TickerSearchedIcon: {
+      fontSize: 15
   }
 });
 
@@ -47,15 +64,25 @@ function StockPriceComparison({navigation}) {
                     <Col style={{ width: '30%', padding: 10 }}>
                         <Button 
                             style={styles.addTickerButton}>
-                            <Text
-                            style={styles.addTickerText}>+</Text>
+                            <Icon
+                                style={styles.AddTickerIcon} 
+                                type="FontAwesome" 
+                                name="plus" />
                         </Button>
                     </Col>
                 </Row>
-                <Row>
-                    <Button>
-                        <Text>PETR4</Text>
-                        <Icon type="FontAwesome" name="home" />
+                <Row style={styles.TickerSearchedRow}>
+                    <Button rounded style={styles.TickerSearchedButton}>
+                        <Text style={styles.TickerSearchedText}>PETR4</Text>
+                        <Icon style={styles.TickerSearchedIcon} type="FontAwesome" name="remove" />
+                    </Button>
+                    <Button rounded style={styles.TickerSearchedButton}>
+                        <Text style={styles.TickerSearchedText}>PETR4</Text>
+                        <Icon style={styles.TickerSearchedIcon} type="FontAwesome" name="remove" />
+                    </Button>
+                    <Button rounded style={styles.TickerSearchedButton}>
+                        <Text style={styles.TickerSearchedText}>PETR4</Text>
+                        <Icon style={styles.TickerSearchedIcon} type="FontAwesome" name="remove" />
                     </Button>
                 </Row>
                 <Row style={{}}>
