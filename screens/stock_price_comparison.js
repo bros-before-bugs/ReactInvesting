@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Container, Item, Input, Content, Grid, Row, Text, Button, Col, Icon} from 'native-base';
+import {Container, Item, Input, Content, Grid, Row, Text, Button, Col, Icon, Toast} from 'native-base';
 import {StyleSheet} from 'react-native';
 import {WebView} from 'react-native-webview';
 
@@ -34,6 +34,9 @@ const styles = StyleSheet.create({
   },
   TickerSearchedIcon: {
       fontSize: 15
+  },
+  Toaster: {
+      backgroundColor: 'red'
   }
 });
 
@@ -56,16 +59,23 @@ function StockPriceComparison({navigation}) {
     };
 
     let addSearchedTicker = () => {
-        // if(ticker.length < 5){
-        //     // TODO: Toast informing the bla bla bla
-        //     return;
-        // }
-        // tickerSearchedList.push(buildTickerSearchedButton(typedTicker));
-        tickerSearchedObject[typedTicker] = buildTickerSearchedButton(typedTicker);
-        setTickerSearchedObject(tickerSearchedObject);
-        
-        setTickerSearchedList(Object.values(tickerSearchedObject))
-        setTypedTicker('');
+        if(typedTicker.length < 5){
+            Toast.show({
+                text: 'é preciso inserir um ticker válido',
+                buttonText: 'Ok',
+                useNativeDriver: true,
+                duration: 3000,
+                style: styles.Toaster
+            })
+        }
+        else 
+        {
+            tickerSearchedObject[typedTicker] = buildTickerSearchedButton(typedTicker);
+            setTickerSearchedObject(tickerSearchedObject);
+            
+            setTickerSearchedList(Object.values(tickerSearchedObject))
+            setTypedTicker('');
+        }
     }
 
     let removeSearchedTicker = (ticker) => {
@@ -77,10 +87,6 @@ function StockPriceComparison({navigation}) {
     }
 
     let saveTipedTicker = (text) => {
-        if(text.length < 5){
-            // TODO: Toast informing the bla bla bla
-            return;
-        }
         setTypedTicker(text);
     }
 
@@ -96,6 +102,7 @@ function StockPriceComparison({navigation}) {
                                 saveTipedTicker(ticker);
                             }}
                             placeholder="ticker da ação. Ex: PETR4"
+                            value={typedTicker}
                             />
                         </Item>
                     </Col>
