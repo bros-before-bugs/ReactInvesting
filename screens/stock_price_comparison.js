@@ -110,7 +110,7 @@ function StockPriceComparison({ navigation }) {
         let comparisonTickers = tickers.splice(1).join(';');
 
         if (Object.values(tickerSearchedObject).length > 1) {
-            setIframe(`<iframe frameBorder='0' scrolling='no' width='400' height='420' src='https://api.stockdio.com/visualization/financial/charts/v1/ComparePrices?app-key=C58D15F86B0B48F2A393FA198819B881&stockExchange=Bovespa&symbol=${symbol.toUpperCase()}&compare=${comparisonTickers.toUpperCase()}&addVolume=false&culture=Portuguese-Brasil&palette=Financial-Light&baseColor=0009f0&compare1Color=f05d18&compare2Color=bd00eb&width=400px'></iframe>`)
+            setIframe(`<iframe frameBorder='0' scrolling='no' width='400' height='420' src='https://api.stockdio.com/visualization/financial/charts/v1/ComparePrices?app-key=C58D15F86B0B48F2A393FA198819B881&stockExchange=Bovespa&symbol=${symbol.toUpperCase()}&compare=${comparisonTickers.toUpperCase()}&addVolume=false&culture=Portuguese-Brasil&palette=Financial-Light&baseColor=0009f0&compare1Color=f05d18&compare2Color=bd00eb&width=400px&allowPeriodChange=false'></iframe>`)
         }
     }
 
