@@ -58,24 +58,35 @@ function StockPriceComparison({ navigation }) {
     };
 
     let addSearchedTicker = () => {
-        if (typedTicker.length < 5) {
-            Toast.show({
-                text: 'é preciso inserir um ticker válido',
-                buttonText: 'Ok',
-                useNativeDriver: true,
-                duration: 3000,
-                style: styles.Toaster
-            })
-        }
-        else {
-            console.log(`Object.keys(tickerSearchedObject) ${Object.keys(tickerSearchedObject).length}`);
+        let tickerIsValid = validateTicker();
+        if(typedTicker.length < 5) {
+            showErrorMessage('É preciso inserir um ticker válido');
 
-            tickerSearchedObject[typedTicker] = buildTickerSearchedButton(typedTicker);
-            setTickerSearchedObject(tickerSearchedObject);
-
-            setTypedTicker('');
-            showStockComparison();
+            
         }
+        else 
+        {
+            if (Object.keys(tickerSearchedObject).length >= 3){
+                showErrorMessage('Só é possível comparar 3 ações ao mesmo tempo.');
+            }
+            else 
+            {
+                tickerSearchedObject[typedTicker] = buildTickerSearchedButton(typedTicker);
+                setTickerSearchedObject(tickerSearchedObject);
+    
+                setTypedTicker('');
+                showStockComparison();
+
+            }
+        }
+    }
+
+    let validateTicker = () => {
+        if(typedTicker.length < 5){
+            showErrorMessage('É preciso inserir um ticker válido');
+            return false;
+        }
+        return true;;
     }
 
     let removeSearchedTicker = (ticker) => {
@@ -97,6 +108,16 @@ function StockPriceComparison({ navigation }) {
         if (Object.values(tickerSearchedObject).length > 1) {
             setIframe(`<iframe frameBorder='0' scrolling='no' width='400' height='420' src='https://api.stockdio.com/visualization/financial/charts/v1/ComparePrices?app-key=C58D15F86B0B48F2A393FA198819B881&stockExchange=Bovespa&symbol=${symbol.toUpperCase()}&compare=${comparisonTickers.toUpperCase()}&addVolume=false&culture=Portuguese-Brasil&palette=Financial-Light&baseColor=0009f0&compare1Color=f05d18&compare2Color=bd00eb&width=400px'></iframe>`)
         }
+    }
+
+    let showErrorMessage = (message) => {
+        Toast.show({
+            text: message,
+            buttonText: 'Ok',
+            useNativeDriver: true,
+            duration: 3000,
+            style: styles.Toaster
+        })
     }
 
     return (
