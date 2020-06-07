@@ -3,6 +3,11 @@ import { Container, Item, Input, Content, Grid, Row, Text, Button, Col, Icon, To
 import { StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
 
+function InvalidTickerException(message){
+    this.message = message;
+    this.name = "InvalidTickerException";
+}
+
 const styles = StyleSheet.create({
     searchRow: {
         alignItems: 'center',
@@ -58,35 +63,34 @@ function StockPriceComparison({ navigation }) {
     };
 
     let addSearchedTicker = () => {
-        let tickerIsValid = validateTicker();
-        if(typedTicker.length < 5) {
-            showErrorMessage('É preciso inserir um ticker válido');
-
-            
-        }
-        else 
+        try 
         {
-            if (Object.keys(tickerSearchedObject).length >= 3){
-                showErrorMessage('Só é possível comparar 3 ações ao mesmo tempo.');
-            }
-            else 
-            {
-                tickerSearchedObject[typedTicker] = buildTickerSearchedButton(typedTicker);
-                setTickerSearchedObject(tickerSearchedObject);
-    
-                setTypedTicker('');
-                showStockComparison();
+            validateTicker();
+            validateQuantityOfSearchedTickers();
 
-            }
+            tickerSearchedObject[typedTicker] = buildTickerSearchedButton(typedTicker);
+            setTickerSearchedObject(tickerSearchedObject);
+
+            setTypedTicker('');
+            showStockComparison();
+        } 
+        catch (error) 
+        {
+            showErrorMessage(error.message);
         }
     }
 
     let validateTicker = () => {
         if(typedTicker.length < 5){
-            showErrorMessage('É preciso inserir um ticker válido');
-            return false;
+            throw new InvalidTickerException('É preciso inserir um ticker válido')
         }
-        return true;;
+        
+    }
+
+    let validateQuantityOfSearchedTickers = () => {
+        if (Object.keys(tickerSearchedObject).length >= 3){
+            throw new InvalidTickerException('Só é possível comparar 3 ações ao mesmo tempo.');
+        }
     }
 
     let removeSearchedTicker = (ticker) => {
