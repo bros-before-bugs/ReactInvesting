@@ -22,6 +22,7 @@ import CompanyInfo from './screens/company_info';
 import HistoricalPrices from './screens/historical_prices';
 import News from './screens/news';
 import Commodities from './screens/commodities';
+import StockPriceComparison from './screens/stock_price_comparison'
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
@@ -98,11 +99,26 @@ function HomeScreen({navigation}) {
               <TouchableOpacity
                 onPress={() => navigation.navigate('HistoricalPrices')}>
                 <ImageBackground
-                  source={require('./assets/img/dumb360x200.jpg')}
+                  source={require('./assets/img/historical_prices.jpg')}
                   style={styles.touchableButtonImgBackground}
                   imageStyle={{borderRadius: 25}}>
                   <Text style={styles.touchableButtonText}>
                     Preços Históricos
+                  </Text>
+                </ImageBackground>
+              </TouchableOpacity>
+            </Col>
+          </Row>
+          <Row style={styles.rowStyle}>
+            <Col>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('StockPriceComparison')}>
+                <ImageBackground
+                  source={require('./assets/img/comparativo.jpg')}
+                  style={styles.touchableButtonImgBackground}
+                  imageStyle={{borderRadius: 25}}>
+                  <Text style={styles.touchableButtonText}>
+                    Comparativo de Ações
                   </Text>
                 </ImageBackground>
               </TouchableOpacity>
@@ -141,7 +157,13 @@ const App: () => React$Node = () => {
             name="Commodities"
             component={Commodities}
             options={{title: 'Commodities'}}
-        />        
+            />
+            <Stack.Screen
+            name="StockPriceComparison"
+            component={StockPriceComparison}
+            options={{title: 'Comparativo de Ações'}}
+            />
+                    
         </Stack.Navigator>
         </NavigationContainer>
       </Root>
