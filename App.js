@@ -99,7 +99,7 @@ function HomeScreen({navigation}) {
               <TouchableOpacity
                 onPress={() => navigation.navigate('HistoricalPrices')}>
                 <ImageBackground
-                  source={require('./assets/img/dumb360x200.jpg')}
+                  source={require('./assets/img/historical_prices.jpg')}
                   style={styles.touchableButtonImgBackground}
                   imageStyle={{borderRadius: 25}}>
                   <Text style={styles.touchableButtonText}>
@@ -114,7 +114,7 @@ function HomeScreen({navigation}) {
               <TouchableOpacity
                 onPress={() => navigation.navigate('StockPriceComparison')}>
                 <ImageBackground
-                  source={require('./assets/img/dumb360x200.jpg')}
+                  source={require('./assets/img/comparativo.jpg')}
                   style={styles.touchableButtonImgBackground}
                   imageStyle={{borderRadius: 25}}>
                   <Text style={styles.touchableButtonText}>
