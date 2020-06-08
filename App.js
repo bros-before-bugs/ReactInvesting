@@ -22,6 +22,7 @@ import CompanyInfo from './screens/company_info';
 import HistoricalPrices from './screens/historical_prices';
 import News from './screens/news';
 import Commodities from './screens/commodities';
+import Contact from './screens/contact';
 import StockPriceComparison from './screens/stock_price_comparison'
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
@@ -124,6 +125,21 @@ function HomeScreen({navigation}) {
               </TouchableOpacity>
             </Col>
           </Row>
+          <Row style={styles.rowStyle}>
+            <Col>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Contact')}>
+                <ImageBackground
+                  source={require('./assets/img/contato.png')}
+                  style={styles.touchableButtonImgBackground}
+                  imageStyle={{borderRadius: 25}}>
+                  <Text style={styles.touchableButtonText}>
+                    Entre em contato
+                  </Text>
+                </ImageBackground>
+              </TouchableOpacity>
+            </Col>
+          </Row>          
         </Grid>
       </Content>
     </Container>
@@ -163,6 +179,11 @@ const App: () => React$Node = () => {
             component={StockPriceComparison}
             options={{title: 'Comparativo de Ações'}}
             />
+            <Stack.Screen
+            name="Contact"
+            component={Contact}
+            options={{title: 'Entre em Contato'}}
+            />            
                     
         </Stack.Navigator>
         </NavigationContainer>
