@@ -10,7 +10,7 @@ import {
   Button,
 } from "react-native";
 
-import api from "../services/api";
+import api from "../services/backendApi";
 
 export class Contact extends Component {
   constructor(props) {

@@ -17,7 +17,7 @@ function HistoricalPrices({navigation}) {
   var getHistoricalPrices = (ticker) => {
     if(ticker.length < 5)
         return;
-    setIframe(`<iframe frameBorder="0" scrolling="no" width="400" height="420" src="https://api.stockdio.com/visualization/financial/charts/v1/HistoricalLookup?app-key=C58D15F86B0B48F2A393FA198819B881&stockExchange=Bovespa&symbol=${ticker.toUpperCase()}&includeVolume=true&showCurrency=true&showUserMenu=false&culture=Portuguese-Brasil=false&showLogo=Title"></iframe>`)
+    setIframe(`<iframe frameBorder="0" scrolling="no" width="400" height="420" src="https://api.stockdio.com/visualization/financial/charts/v1/HistoricalLookup?app-key=C58D15F86B0B48F2A393FA198819B881&stockExchange=Bovespa&symbol=${ticker.toUpperCase()}&includeVolume=true&showCurrency=true&palette=Healthy&showUserMenu=false&culture=Portuguese-Brasil&showLogo=Title"></iframe>`)
   };
   return (
     <Container>

@@ -15,7 +15,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons'
 Icon.loadFont();
 
-import api from "../services/api";
+import backendApi from "../services/backendApi";
 
 export class Avaliacoes extends Component {
   constructor(props) {
@@ -25,10 +25,9 @@ export class Avaliacoes extends Component {
     };
   }
 
-
   async componentDidMount() {
     try {
-      const response = await api.get("/users");
+      const response = await backendApi.get("/users");
       console.log(response.data)
       this.setState({ users:response.data})
        /*
@@ -49,21 +48,20 @@ export class Avaliacoes extends Component {
             <Text style={{marginLeft: 10}}>{item.name}</Text>
         </TouchableOpacity>
     )
-}
+  }
 
-FlatListItemSeparator = () => {
-  return (
-    //Item Separator
-    <View
-      style={{ height: 1.5, width: '100%', backgroundColor: 'rgb(69, 166, 247)' }}
-    />
-  );
-};
+  FlatListItemSeparator = () => {
+    return (
+      //Item Separator
+      <View
+        style={{ height: 1.5, width: '100%', backgroundColor: 'rgb(69, 166, 247)' }}
+      />
+    );
+  };
 
-GetItem(item,message) {
-  Alert.alert(item,message);
-}
-
+  GetItem(item,message) {
+    Alert.alert(item,message);
+  }
 
   render() {
     const { users } = this.state;

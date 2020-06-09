@@ -27,6 +27,7 @@ import Contact from './screens/contact';
 import Avaliacoes from './screens/avaliacoes';
 import StockPriceComparison from './screens/stock_price_comparison'
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import RecentPrices from './screens/recent_prices';
 
 const styles = StyleSheet.create({
   touchableButtonText: {
@@ -145,6 +146,21 @@ function HomeScreen({navigation}) {
           <Row style={styles.rowStyle}>
             <Col>
               <TouchableOpacity
+                onPress={() => navigation.navigate('RecentPrices')}>
+                <ImageBackground
+                  source={require('./assets/img/latest_prices.jpg')}
+                  style={styles.touchableButtonImgBackground}
+                  imageStyle={{borderRadius: 25}}>
+                  <Text style={styles.touchableButtonText}>
+                    Último preço
+                  </Text>
+                </ImageBackground>
+              </TouchableOpacity>
+            </Col>
+          </Row>
+          <Row style={styles.rowStyle}>
+            <Col>
+              <TouchableOpacity
                 onPress={() => navigation.navigate('Contact')}>
                 <ImageBackground
                   source={require('./assets/img/contato.png')}
@@ -215,6 +231,11 @@ const App: () => React$Node = () => {
             name="HistoricalPrices"
             component={HistoricalPrices}
             options={{title: 'Preços históricos'}}
+            />
+            <Stack.Screen
+            name="RecentPrices"
+            component={RecentPrices}
+            options={{title: 'Último preço'}}
             />
             <Stack.Screen
             name="Contact"
