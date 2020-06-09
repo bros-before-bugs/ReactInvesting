@@ -19,6 +19,7 @@ import {
 } from 'native-base';
 import { Root } from "native-base";
 import CompanyInfo from './screens/company_info';
+import StockGraphics from './screens/stock_graphics';
 import HistoricalPrices from './screens/historical_prices';
 import News from './screens/news';
 import Commodities from './screens/commodities';
@@ -99,13 +100,13 @@ function HomeScreen({navigation}) {
           <Row style={styles.rowStyle}>
             <Col>
               <TouchableOpacity
-                onPress={() => navigation.navigate('HistoricalPrices')}>
+                onPress={() => navigation.navigate('StockGraphics')}>
                 <ImageBackground
-                  source={require('./assets/img/historical_prices.jpg')}
+                  source={require('./assets/img/stock_graphics.jpg')}
                   style={styles.touchableButtonImgBackground}
                   imageStyle={{borderRadius: 25}}>
                   <Text style={styles.touchableButtonText}>
-                    Preços Históricos
+                    Gráfico de ações
                   </Text>
                 </ImageBackground>
               </TouchableOpacity>
@@ -121,6 +122,21 @@ function HomeScreen({navigation}) {
                   imageStyle={{borderRadius: 25}}>
                   <Text style={styles.touchableButtonText}>
                     Comparativo de Ações
+                  </Text>
+                </ImageBackground>
+              </TouchableOpacity>
+            </Col>
+          </Row>
+          <Row style={styles.rowStyle}>
+            <Col>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('HistoricalPrices')}>
+                <ImageBackground
+                  source={require('./assets/img/historical_prices.jpg')}
+                  style={styles.touchableButtonImgBackground}
+                  imageStyle={{borderRadius: 25}}>
+                  <Text style={styles.touchableButtonText}>
+                    Preços históricos
                   </Text>
                 </ImageBackground>
               </TouchableOpacity>
@@ -176,9 +192,9 @@ const App: () => React$Node = () => {
             options={{title: 'Informações da Empresa'}}
             />
             <Stack.Screen
-            name="HistoricalPrices"
-            component={HistoricalPrices}
-            options={{title: 'Valores Históricos'}}
+            name="StockGraphics"
+            component={StockGraphics}
+            options={{title: 'Gráficos de ações'}}
             />
             <Stack.Screen
             name="News"
@@ -194,6 +210,11 @@ const App: () => React$Node = () => {
             name="StockPriceComparison"
             component={StockPriceComparison}
             options={{title: 'Comparativo de Ações'}}
+            />
+            <Stack.Screen
+            name="HistoricalPrices"
+            component={HistoricalPrices}
+            options={{title: 'Preços históricos'}}
             />
             <Stack.Screen
             name="Contact"
