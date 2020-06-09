@@ -51,6 +51,7 @@ function StockPriceComparison({ navigation }) {
 
     const [iframe, setIframe] = useState('');
     const [tickerSearchedObject, setTickerSearchedObject] = useState({})
+    const [tickerSearchedJSXList, setTickerSearchedJSXList] = useState([])
     const [typedTicker, setTypedTicker] = useState('');
 
     let buildTickerSearchedButton = (ticker) => {
@@ -70,7 +71,10 @@ function StockPriceComparison({ navigation }) {
 
             tickerSearchedObject[typedTicker] = buildTickerSearchedButton(typedTicker);
             setTickerSearchedObject(tickerSearchedObject);
-
+            setTickerSearchedJSXList(Object.values(tickerSearchedObject))
+            console.log("=========================== addSearchedTicker =====================");
+            console.log(`tickerSearchedObject -> values.length: ${Object.values(tickerSearchedObject)}`);
+            console.log(`tickerSearchedObject -> keys: ${Object.keys(tickerSearchedObject)}`);
             setTypedTicker('');
             showStockComparison();
         } 
@@ -96,8 +100,13 @@ function StockPriceComparison({ navigation }) {
     let removeSearchedTicker = (ticker) => {
         delete tickerSearchedObject[ticker];
         setTickerSearchedObject(tickerSearchedObject);
+        setTickerSearchedJSXList(Object.values(tickerSearchedObject))
 
         showStockComparison();
+        console.log("=========================== removeSearchedTicker =====================");
+        console.log(`tickerSearchedObject -> values.length: ${Object.values(tickerSearchedObject).length}`);
+        console.log(`tickerSearchedObject -> keys: ${Object.keys(tickerSearchedObject)}`);
+        console.log("ticker:" + ticker)
     }
 
     let saveTipedTicker = (text) => {
@@ -109,9 +118,9 @@ function StockPriceComparison({ navigation }) {
         let symbol = tickers[0];
         let comparisonTickers = tickers.splice(1).join(';');
 
-        if (Object.values(tickerSearchedObject).length > 1) {
-            setIframe(`<iframe frameBorder='0' scrolling='no' width='400' height='420' src='https://api.stockdio.com/visualization/financial/charts/v1/ComparePrices?app-key=C58D15F86B0B48F2A393FA198819B881&stockExchange=Bovespa&symbol=${symbol.toUpperCase()}&compare=${comparisonTickers.toUpperCase()}&addVolume=false&culture=Portuguese-Brasil&palette=Financial-Light&baseColor=0009f0&compare1Color=f05d18&compare2Color=bd00eb&width=400px&allowPeriodChange=false'></iframe>`)
-        }
+        // if (Object.values(tickerSearchedObject).length > 1) {
+        // }
+        setIframe(`<iframe frameBorder='0' scrolling='no' width='400' height='420' src='https://api.stockdio.com/visualization/financial/charts/v1/ComparePrices?app-key=C58D15F86B0B48F2A393FA198819B881&stockExchange=Bovespa&symbol=${symbol.toUpperCase()}&compare=${comparisonTickers.toUpperCase()}&addVolume=false&culture=Portuguese-Brasil&palette=Financial-Light&baseColor=0009f0&compare1Color=f05d18&compare2Color=bd00eb&width=400px&allowPeriodChange=false'></iframe>`)
     }
 
     let showErrorMessage = (message) => {
@@ -153,7 +162,7 @@ function StockPriceComparison({ navigation }) {
                         </Col>
                     </Row>
                     <Row style={styles.TickerSearchedRow}>
-                        {Object.values(tickerSearchedObject)}
+                        {tickerSearchedJSXList}
                     </Row>
                     <Row style={{}}>
                         <WebView
